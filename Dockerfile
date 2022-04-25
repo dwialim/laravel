@@ -1,5 +1,5 @@
 FROM composer AS build
-ENV CACHE_DRIVE=file
+ENV CACHE_DRIVER=file
 WORKDIR /src
 COPY . .
 RUN mv .env.example .env
@@ -7,7 +7,7 @@ RUN composer install
 RUN php artisan key:generate
 
 FROM php:8-alpine
-ENV CACHE_DRIVE=file
+ENV CACHE_DRIVER=file
 user 1000
 WORKDIR /app
 COPY --from=build --chown=1000:1000 /src /app
